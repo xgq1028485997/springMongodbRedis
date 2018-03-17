@@ -1,0 +1,41 @@
+.am-icon-fw{
+	width:20px;
+	height:20px;
+	line-height:20px;
+}
+.am-icon-home{
+	background-image: url(../images/icon/am-icon-home.jpg);
+    background-size: 20px;
+}
+.am-icon-user{
+	background-image: url(../images/icon/am-icon-user.jpg);
+	background-size: 20px;
+}
+.am-icon-lock{
+	background-image: url(../images/icon/am-icon-lock.jpg);
+	background-size: 20px;
+}
+.fa-cog{
+	background-image: url(../images/fa/fa-cog.jpg);
+	background-size: 20px;
+}
+.fa-user{
+	background-image: url(../images/fa/fa-user.jpg);
+	background-size: 20px;
+}
+.fa-role{
+	background-image: url(../images/fa/fa-role.jpg);
+	background-size: 20px;
+}
+.fa-file-excel{
+	background-image: url(../images/fa/fa-file-excel.jpg);
+	background-size: 20px;
+}
+.fa-arrow-down{
+	background-image: url(../images/fa/fa-arrow-down.jpg);
+	background-size: 20px;
+}
+.fa-arrow-up{
+	background-image: url(../images/fa/fa-arrow-up.jpg);
+	background-size: 20px;
+}

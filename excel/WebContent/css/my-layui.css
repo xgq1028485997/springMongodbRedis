@@ -1,0 +1,15 @@
+/*菜单*/
+.my-layui-colla-title{
+position:relative;
+height:42px;
+line-height:42px;
+padding:0 15px 0 35px;
+color:#333;
+background-color:#f2f2f2;
+cursor:pointer;
+}
+
+/*input将小写字母显示成大写，本质还是小写*/
+.my-layui-input-uppercase{
+	text-transform: uppercase;
+}
