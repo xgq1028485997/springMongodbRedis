@@ -152,7 +152,7 @@
 			$("select[name='functionType']").val(obj.functionType);
 			$("select[name='functionSort']").val(obj.functionSort);
 		} else {
-			resetFunction();
+			resetFunction(); 
 		}
 	}
 	
