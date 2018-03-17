@@ -34,7 +34,6 @@
 	<classpathentry kind="lib" path="E:/ProjectFile/spring4.0.6/spring-webmvc-4.0.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="E:/ProjectFile/spring4.0.6/spring-webmvc-portlet-4.0.6.RELEASE.jar"/>
 	<classpathentry kind="lib" path="E:/ProjectFile/spring4.0.6/spring-websocket-4.0.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="E:/ProjectFile/hibernate4.2.21/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="E:/ProjectFile/hibernate4.2.21/c3p0-0.9.2.1.jar"/>
 	<classpathentry kind="lib" path="E:/ProjectFile/hibernate4.2.21/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="E:/ProjectFile/hibernate4.2.21/ehcache-core-2.4.3.jar"/>
@@ -62,5 +61,6 @@
 	<classpathentry kind="lib" path="E:/ProjectFile/hibernate4.2.21/stax2-api-3.1.1.jar"/>
 	<classpathentry kind="lib" path="E:/ProjectFile/hibernate4.2.21/staxmapper-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="E:/ProjectFile/hibernate4.2.21/woodstox-core-asl-4.1.1.jar"/>
+	<classpathentry kind="lib" path="E:/ProjectFile/hibernate4.2.21/antlr-2.7.7.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

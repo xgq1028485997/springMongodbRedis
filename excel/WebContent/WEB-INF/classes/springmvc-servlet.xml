@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.2.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	<!-- 包含annotation-config。spring可以自动去扫描base-pack下面或者子包下面的java文件，如果扫描到有@Component @Controller@Service等这些注解的类，则把这些类注册为bean-->
+	<context:component-scan base-package="com.excel,org.dao"></context:component-scan>
+	<!-- 默认的注解映射的支持 -->
+	<mvc:annotation-driven enable-matrix-variables="true"/>
+	<!-- 当在web.xml 中 DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
+	<mvc:default-servlet-handler />
+	<!-- 静态资源映射 -->
+	<mvc:resources mapping="/static/**" location="/static/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources location="/images/**" mapping="/images/**" />
+	<!-- 缓存设置 -->
+	<cache:annotation-driven cache-manager="cacheManager"/>
+	<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+	    <property name="configLocation" value="classpath:ehcache.xml"/>
+	</bean>
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+	    <property name="cacheManager" ref="cacheManagerFactory"/>
+	</bean>
+	
+	<!-- 采用SpringMVC自带的JSON转换工具，支持@ResponseBody注解 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	    <property name="cacheSeconds" value="0"/>
+		<property name="messageConverters">
+			<list>
+				<bean
+					class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- ========================= VIEW定义 ========================= -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="contentType" value="text/html" />
+		<property name="prefix" value="/jsp" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- 
+		②：启动Spring MVC的注解功能，完成请求和注解POJO的映射，添加拦截器，类级别的处理器映射
+	-->
+	<mvc:interceptors>
+		<!-- 配置拦截器，实现会话失效重新登录 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/index/**" />
+			<mvc:mapping path="/lc/**"/>
+			<mvc:mapping path="/user/**"/>
+			<bean class="org.base.SysHandlerInterceptor">
+				<!-- 设置不过滤的地址 -->
+				<property name="noFilters">
+					<list>
+						<value>/lc/login</value>
+						<value>/lc/toLogin</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:interceptor>
+		<!-- 配置Token拦截器，防止用户重复提交数据 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/*/*add*" />
+			<mvc:mapping path="/*/*update*" />
+			<mvc:mapping path="/*/*delete*" />
+			<mvc:mapping path="/lc/login"/>
+			<bean class="org.base.TokenInterceptor" />
+			<!-- 设置不过滤的地址 -->
+			<!-- <mvc:exclude-mapping path=""/> -->
+		</mvc:interceptor>
+	</mvc:interceptors>
+</beans>

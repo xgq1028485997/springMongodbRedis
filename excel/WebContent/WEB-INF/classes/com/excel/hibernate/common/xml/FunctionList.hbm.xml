@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+	<hibernate-mapping package="com.excel.hibernate.common">
+		<class name="FunctionList" table="FUNCTION_LIST" dynamic-insert="true" dynamic-update="true">
+			<id name="functionId" column="function_id" type="java.lang.Integer">
+				<generator class="native"/>
+			</id>
+			<property name="functionPcode" column="function_pcode" length="225" not-null="true" type="java.lang.String"/>
+		    <property name="functionCode" column="function_code" length="255" not-null="true" type="java.lang.String"/>
+		    <property name="functionName" column="function_name" length="255" not-null="true" type="java.lang.String"/>
+		    <property name="functionUrl" column="function_url" length="255" type="java.lang.String"/>
+		    <property name="functionSort" column="function_sort" precision="10" scale="2" not-null="true" type="java.math.BigDecimal"/>
+		    <property name="functionRemark" column="function_remark" length="500" type="java.lang.String"/>
+		    <property name="functionDelete" column="function_delete" length="1" not-null="true" type="java.lang.String"/>
+		    <property name="functionAddtime" column="function_addtime" not-null="true" type="java.util.Date"/>
+		    <property name="functionIcon" column="function_icon" length="255" type="java.lang.String"/>
+		    <property name="functionType" column="function_type" length="255" not-null="true" type="java.lang.String"/>
+		</class>
+    </hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+	<hibernate-mapping package="com.excel.hibernate.common">
+	    <!-- 使用 version 实现乐观锁（推荐使用）：在一个事务提交后就会更改数据库，数据库中 version 的值会自动加 
+	    1 。实现步骤  1 、在持久化类中加入 version 属性，生成其 getter 和 setter 方法。 
+	    2 、在配置文件中的 <class> 标签中配置一个属性 optimistic-lock=”version” （这个属性的默认值就是 version ，可以不进行配置，但建议配置上） 
+	    3 、对 version 字段进行映射，使用 version 标签（这个字段的映射必须在 id 标签的后面第一位）    -->
+		<class name="TypeList" table="TYPE_LIST" dynamic-insert="true" dynamic-update="true">
+		    <id name="typeId" column="type_id" type="java.lang.Integer">
+				<generator class="native"/>
+			</id>
+			<property name="typeNo" column="type_no" length="32" not-null="true" type="java.lang.String"/>
+		    <property name="typeName" column="type_name" length="32" not-null="true" type="java.lang.String"/>
+		    <property name="typeAddtime" column="type_addtime" not-null="true" type="java.util.Date"/>
+		</class>
+    </hibernate-mapping>
