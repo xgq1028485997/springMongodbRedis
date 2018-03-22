@@ -1,0 +1,11 @@
+/applicationContext.xml
+/com/
+/log4j.properties
+/log4j.xml
+/mongo-config.xml
+/mongodb.properties
+/redis-cluster.properties
+/redis-config.xml
+/redis.properties
+/spring-context-jedis-cluster.xml
+/springmvc-servlet.xml
