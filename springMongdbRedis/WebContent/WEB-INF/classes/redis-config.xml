@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- JedisPoolConfig jedis连接池配置对象 JedisConnectionFactory jedis连接工厂，生成连接对象 
+		RedisTemplate RedisTemplate 对 RedisConnection 进行了封装。 RedisCacheManager 做为 
+		redis 统一的调度和管理者 RedisCacheConfig extends CachingConfigurerSupport，自定义redis的key生成规则， 
+		如果不在注解参数中注明key=“”的话，就采用这个类中的key生成规则生成key -->
+	<!-- scanner redis properties -->
+	<!--（1）如果你有多个数据源需要通过<context:property-placeholder管理，且不愿意放在一个配置文件里，那么一定要加上ignore-unresolvable=“true" -->
+	<context:property-placeholder location="classpath:redis.properties"
+		ignore-unresolvable="true" />
+
+	<!-- 配置 JedisPoolConfig 实例 -->
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxTotal" value="${redis.maxActive}" />
+		<property name="maxWaitMillis" value="${redis.maxWait}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	</bean>
+
+	<!-- 配置JedisConnectionFactory -->
+	<bean id="jedisConnectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<property name="hostName" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+		<property name="password" value="${redis.pass}" />
+		<property name="database" value="${redis.dbIndex}" />
+		<property name="poolConfig" ref="poolConfig" />
+	</bean>
+
+	<!-- 配置RedisTemplate -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory" />
+	</bean>
+
+	<!-- 使用spring  <context:annotation-config  cache-manager="redisCacheManager"/>（一般在spring-servlet.xml） 时 -->
+	<!-- 配置RedisCacheManager -->
+	<bean id="redisCacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+		<constructor-arg name="redisOperations" ref="redisTemplate" />
+		<property name="defaultExpiration" value="${redis.expiration}" />
+	</bean>
+
+	<!-- 配置RedisCacheConfig -->
+	<bean id="redisCacheConfig" class="com.redis.cache.RedisCacheConfig">
+		<constructor-arg ref="jedisConnectionFactory" />
+		<constructor-arg ref="redisTemplate" />
+		<constructor-arg ref="redisCacheManager" />
+	</bean>
+	
+	<!-- 使用spring  <context:annotation-config  cache-manager="cacheManager"/>（一般在spring-servlet.xml） 时 -->
+	<!-- <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+		<property name="caches">
+			<set>
+				<bean
+					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+					<property name="name" value="default"></property>
+				</bean>
+				<bean class="com.redis.cache.RedisCache">
+					<property name="redisTemplate" ref="redisTemplate" />
+					<property name="name" value="getUserList1" />
+					common名称要在类或方法的注解中使用
+				</bean>
+			</set>
+		</property>
+	</bean> -->
+</beans>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+       
+	<!-- 法将名称 'repository:auditing-attributes' 解析为 'attribute group' 组件
+		必须加http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository-1.5.xsd
+		未启动auth时需加该
+	 -->
+	<!-- 加载mongodb的配置属性文件 -->
+	<!-- Spring容器仅允许最多定义一个PropertyPlaceholderConfigurer(或<context:property-placeholder/>)，其余的会被Spring忽略掉。 
+		添加ignore-unresolvable="true"
+	-->
+	<context:property-placeholder location="classpath:mongodb.properties" ignore-unresolvable="true" />
+	
+	<!-- mongodb 3.0开始需要定义mongo:mongo-client，而不是mongo:mongo --><!-- credentials="xgq:123@mongodb" -->
+	<mongo:mongo-client host="${mongo.host}" port="${mongo.port}" credentials="${credentials}" id="mongo">
+		<mongo:client-options write-concern="${mongo.writeconcern}"
+			connect-timeout="${mongo.connectTimeout}" socket-keep-alive="${mongo.socketKeepAlive}" />
+	</mongo:mongo-client>
+
+
+	<!-- 配置数据test   mongo:db-factory dbname="database" mongo-ref="mongo" / -->
+	<mongo:db-factory id="mongoDbFactory" dbname="${dbname}" mongo-ref="mongo" />
+
+	<!-- 只要使用这个调用相应的方法操作 -->
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+	</bean>
+
+	
+</beans>	

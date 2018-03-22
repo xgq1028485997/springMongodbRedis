@@ -11,8 +11,48 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="src" path="config"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/commons-beanutils-1.9.2.redhat-1.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/commons-dbcp-1.4.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/commons-fileupload-1.2.1.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/commons-pool-1.6.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/commons-pool2-2.5.0.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/jackson-annotations-2.9.4.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/jackson-core-2.9.4.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/jackson-databind-2.9.4.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/jedis-2.9.0.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/json-lib-2.2.3-jdk15.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/mongo-java-driver-3.4.2.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/slf4j-log4j12-1.7.3.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-aop-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-aspects-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-beans-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-context-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-context-support-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-core-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-data-commons-1.12.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-data-mongodb-1.9.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-data-redis-1.8.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-expression-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-instrument-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-instrument-tomcat-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-jms-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-messaging-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-orm-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-oxm-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-test-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-tx-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-web-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-webmvc-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-webmvc-portlet-4.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="E:/GitRepository/springMongdbRedis/WebContent/WEB-INF/lib/spring-websocket-4.3.5.RELEASE.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
