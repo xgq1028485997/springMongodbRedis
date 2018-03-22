@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%p]: %-d{yyyy-MM-dd HH:mm:ss} [%c] %m%n" />
+		</layout>
+	</appender>
+	<!-- DEBUG日志输入配置 -->
+	<appender name="filedebug"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File"
+			value="debug.log" />
+		<param name="Append" value="true" />
+		<!-- 
+		<param name="MaxFileSize" value="2048KB" />
+		<param name="MaxBackupIndex" value="2" />
+		 -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%p]: %-d{yyyy-MM-dd HH:mm:ss} [%c] %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMax" value="DEBUG" />
+		</filter>
+	</appender>
+	<!-- INFO日志输入配置 -->
+	<appender name="fileinfo"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File"
+			value="info.log" />
+		<param name="Append" value="true" />
+		<!-- 
+		<param name="MaxFileSize" value="2048KB" />
+		<param name="MaxBackupIndex" value="2" />
+		 -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%p]: %-d{yyyy-MM-dd HH:mm:ss} [%c] %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+			<param name="LevelMax" value="INFO" />
+		</filter>
+	</appender>
+	<!-- WARNING日志输入配置 -->
+	<appender name="filewarn"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File"
+			value="warn.log" />
+		<param name="Append" value="true" />
+		<!-- 
+		<param name="MaxFileSize" value="2048KB" />
+		<param name="MaxBackupIndex" value="2" />
+		 -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%p]: %-d{yyyy-MM-dd HH:mm:ss} [%c] %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="WARN" />
+			<param name="LevelMax" value="WARN" />
+		</filter>
+	</appender>
+	<!-- ERROR日志输入配置 -->
+	<appender name="fileerror"
+		class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File"
+			value="error.log" />
+		<param name="Append" value="true" />
+		<!-- 
+		<param name="MaxFileSize" value="2048KB" />
+		<param name="MaxBackupIndex" value="2" />
+		 -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%p]: %-d{yyyy-MM-dd HH:mm:ss} [%c] %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="ERROR" />
+			<param name="LevelMax" value="ERROR" />
+		</filter>
+	</appender>
+	
+	<category name="org.hibernate">           <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="org.codehaus.xfire">      <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="org.apache.axis">         <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="org.springframework">        <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="filedebug" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="org.springframework.web">       <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="filedebug" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">       <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="filedebug" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="com.opensymphony.xwork2">              <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="filedebug" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="freemarker.cache">              <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="com.googlecode.ehcache.annotations"> <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="filedebug" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="httpclient">            <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="org.acegisecurity">        <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="net.sf.ehcache">        <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="WARN" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="org.quartz">      <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="WARN" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="com.excel"><!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="info" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="filedebug" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="org.apache.struts2">       <!--  -->
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="filedebug" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="com.mchange.v2">
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="filedebug" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	<category name="org.logicalcobwebs">    
+		<param name="additivity" value="false"/>  
+		<priority value="INFO" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="filedebug" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</category>
+	
+	<root>
+		<priority value="debug" />
+		<appender-ref ref="stdout" />
+		<appender-ref ref="filedebug" />
+		<appender-ref ref="fileinfo" />
+		<appender-ref ref="filewarn" />
+		<appender-ref ref="fileerror" />
+	</root>
+</log4j:configuration>

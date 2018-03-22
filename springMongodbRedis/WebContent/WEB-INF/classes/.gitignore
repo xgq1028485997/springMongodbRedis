@@ -1,8 +1,0 @@
-/applicationContext.xml
-/com/
-/log4j.xml
-/mongo-config.xml
-/mongodb.properties
-/redis-config.xml
-/redis.properties
-/springmvc-servlet.xml
