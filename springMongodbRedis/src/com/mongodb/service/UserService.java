@@ -11,6 +11,6 @@ public interface UserService {
 
 	void addUserList(UserList userList, String collectionName);
 
-	void updateUserList(Map<String, Object> params, String collectionName);
+	void updateUserList(Map<String, Object> params,Map<String,Object> where);
 
 }

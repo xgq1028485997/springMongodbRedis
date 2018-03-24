@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
-import com.mongodb.base.MongoBase;
 import com.mongodb.collection.UserList;
 import com.mongodb.dao.UserDao;
 @Repository("userDao")
@@ -21,8 +20,8 @@ public class UserDaoImpl implements UserDao{
 	private MongoTemplate mongoTemplate;
 	
 	@Override
-	public void insert(UserList object,String collectionName) {
-		//this.save(object);
+	public void insert(Object object,String collectionName) {
+		mongoTemplate.save(object,collectionName);
 	}
 	
 	@Override
@@ -38,7 +37,7 @@ public class UserDaoImpl implements UserDao{
 	}
 	
 	@Override
-	public void update(Map<String,Object> params) {
+	public void update(Map<String,Object> params,Map<String,Object> where) {
 		//mongoTemplate.update(new Query(Criteria.where("userId").is(params.get("userId"))), new Update().set("userName", params.get("userName")));
 	}
 	
@@ -50,6 +49,16 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public void remove(Map<String, Object> params) {
 		//this.remove(new Query(Criteria.where("userId").is(params.get("userId"))));
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object> find(Map<String, Object> params, Class<?> cls) {
+		Query query = new Query();
+		for(Map.Entry<String, Object> p : params.entrySet()){
+			query.addCriteria(Criteria.where(p.getKey()).is(p.getValue()));
+		}
+		return (List<Object>) mongoTemplate.find(query, cls);
 	}
 
 }

@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:redis="http://www.springframework.org/schema/redis" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/redis http://www.springframework.org/schema/redis/spring-redis-1.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
 	<description>redis 相关类 Spring 托管</description>
 
-	<!--载入 redis 配置文件 ignore-unresolvable属性可让property-placeholder不被其它property-placeholder覆盖-->
+	<!--载入 redis 配置文件 ignore-unresolvable属性可让property-placeholder不被其它property-placeholder覆盖 -->
 	<context:property-placeholder location="classpath:redis.properties"
 		ignore-unresolvable="true" />
 
@@ -36,7 +38,7 @@
 		<property name="connectionFactory" ref="jedisConnectionFactory" />
 	</bean>
 
-	
+
 	<!-- 配置RedisCacheManager -->
 	<!-- 必须开始<cache:annotation-driven cache-manager="redisCacheManager"/>，一般在spring-servlet.xml配置 -->
 	<bean id="redisCacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
@@ -51,6 +53,86 @@
 		<constructor-arg ref="redisCacheManager" />
 	</bean>
 
+	<!-- pub/sub消息订阅 -->
+	<!-- <bean id="topicMessageListener" class="com.redis.messageQueue.TopicMessageListener">
+		<property name="redisTemplate" ref="redisTemplate"></property>
+	</bean>
+
+	<bean id="topicContainer"
+		class="org.springframework.data.redis.listener.RedisMessageListenerContainer"
+		destroy-method="destroy">
+		<property name="connectionFactory" ref="jedisConnectionFactory" />
+		<property name="taskExecutor">
+			<bean
+				class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+				<property name="poolSize" value="3"></property>
+			</bean>
+		</property>
+		<property name="messageListeners">
+			<map>
+				<entry key-ref="topicMessageListener">
+					<bean class="org.springframework.data.redis.listener.ChannelTopic">
+						<constructor-arg value="user:topic" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean> -->
+ 
 
 
+
+
+	<!-- JDK序列化工具 -->
+	<bean id="jdkSerialization"
+		class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+	<!-- 文本序列化工具 -->
+	<bean id="stringSerialization"
+		class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+
+	<!-- 订阅者适配器 -->
+	<bean id="messageListenerAdapter"
+		class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter">
+		<property name="serializer" ref="jdkSerialization" />
+		<property name="stringSerializer" ref="stringSerialization" />
+		<!-- 订阅者 Redis监听 -->
+		<constructor-arg>
+			<bean class="com.redis.messageQueue.RedisListener" /> 
+		</constructor-arg>
+		<!-- 默认接收方法 -->
+		<property name="defaultListenerMethod" value="handleMessage" />
+	</bean>
+
+	<!-- 装箱，这里和老版本是不同的 -->
+	<bean id="redisMessageListenerContainer"
+		class="org.springframework.data.redis.listener.RedisMessageListenerContainer">
+		<property name="connectionFactory" ref="jedisConnectionFactory" />
+		<!-- 通道序列化  -->
+		<property name="topicSerializer" ref="stringSerialization" />  
+		 <!-- channelPattern 通道设置器  -->
+		<property name="messageListeners">
+			<map key-type="org.springframework.data.redis.connection.MessageListener"
+				value-type="org.springframework.data.redis.listener.PatternTopic">
+				<entry key-ref="messageListenerAdapter">
+					<list>
+					    <!-- 固定值 -->
+						<bean class="org.springframework.data.redis.listener.ChannelTopic">
+							<constructor-arg value="RedisMessage" />
+						</bean>
+						<!-- 可匹配 -->
+						<bean class="org.springframework.data.redis.listener.PatternTopic">
+							<constructor-arg value="Redis*" />
+						</bean>
+						<bean class="org.springframework.data.redis.listener.PatternTopic">
+							<constructor-arg value="Message*" />
+						</bean>
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	
+	
+	
 </beans>

@@ -1,5 +1,6 @@
 package com.redis.cache;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 
 import org.slf4j.Logger;
@@ -55,13 +56,13 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
 		return new KeyGenerator() {
 			@Override
 			public Object generate(Object o, Method method, Object... objects) {
-				log.info("Redis key : " + o.getClass().getName());
 				StringBuilder sb = new StringBuilder();
 				sb.append(o.getClass().getName());
 				sb.append(method.getName());
 				for (Object obj : objects) {
 					sb.append(obj.toString());
 				}
+				log.info("Redis key : " + sb.toString());
 				return sb.toString();
 			}
 		};
